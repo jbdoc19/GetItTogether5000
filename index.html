@@ -1596,5 +1596,32 @@
 
     document.addEventListener('DOMContentLoaded', init);
   </script>
+
+  <script>
+    const chatWindow = document.getElementById('chat-window');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+
+    function appendMessage(sender, message) {
+      const msg = document.createElement('div');
+      msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      chatWindow.appendChild(msg);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    sendButton.addEventListener('click', async () => {
+      const userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+
+      appendMessage('You', userMessage);
+      chatInput.value = '';
+
+      appendMessage('Karl', '...');
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendButton.click();
+    });
+  </script>
 </body>
 </html>
