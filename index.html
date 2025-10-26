@@ -645,6 +645,35 @@
       gap: 0.8rem;
     }
 
+    /* Chatbot container */
+    #chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+      z-index: 999;
+    }
+
+    #chat-window {
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    #chat-input {
+      width: 70%;
+    }
+
+    #send-button {
+      width: 25%;
+    }
+
     label {
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -908,6 +937,12 @@
     <source src="data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=" type="audio/mp3" />
   </audio>
   <canvas id="confettiCanvas" style="position:fixed; inset:0; pointer-events:none; width:100vw; height:100vh; display:none;"></canvas>
+  <div id="chatbot-container">
+    <div id="chat-window"></div>
+    <input type="text" id="chat-input" placeholder="Talk to Karl..." />
+    <button id="send-button">Send</button>
+  </div>
+
   <script>
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
