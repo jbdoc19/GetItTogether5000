@@ -57,13 +57,19 @@
       top: 0;
       z-index: 50;
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: auto minmax(0, 1fr) auto;
       gap: 1rem;
       align-items: center;
       padding: 0.75rem 0;
       background: rgba(5, 7, 18, 0.86);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .nav-wrapper {
+      display: grid;
+      gap: 0.75rem;
+      justify-items: center;
     }
 
     .brand {
@@ -122,6 +128,47 @@
     .nav-tabs button:focus-visible {
       outline: 2px solid var(--neon-blue);
       outline-offset: 2px;
+    }
+
+    .external-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.95rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(56, 189, 248, 0.22);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .link-btn:hover,
+    .link-btn:focus-visible {
+      background: rgba(56, 189, 248, 0.35);
+      border-color: rgba(56, 189, 248, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .link-btn.secondary {
+      background: rgba(74, 222, 128, 0.18);
+      border-color: rgba(74, 222, 128, 0.45);
+    }
+
+    .link-btn.secondary:hover,
+    .link-btn.secondary:focus-visible {
+      background: rgba(74, 222, 128, 0.28);
+      border-color: rgba(74, 222, 128, 0.65);
     }
 
     .streak-panel {
@@ -670,6 +717,19 @@
         text-align: center;
       }
 
+      .nav-wrapper {
+        width: 100%;
+      }
+
+      .external-links {
+        width: 100%;
+      }
+
+      .link-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+      }
+
       .streak-panel {
         justify-self: center;
       }
@@ -706,13 +766,33 @@
         <span>KR</span>
         KARL Recovery Engine
       </div>
-      <nav class="nav-tabs" role="tablist" aria-label="ARCC navigation">
-        <button data-target="home" role="tab">🏠 Home</button>
-        <button class="active" data-target="today" role="tab" aria-selected="true">📅 Today</button>
-        <button data-target="streaks" role="tab">🔥 Streaks</button>
-        <button data-target="wins" role="tab">🏆 Wins</button>
-        <button data-target="settings" role="tab">⚙️ Settings</button>
-      </nav>
+      <div class="nav-wrapper">
+        <nav class="nav-tabs" role="tablist" aria-label="ARCC navigation">
+          <button data-target="home" role="tab">🏠 Home</button>
+          <button class="active" data-target="today" role="tab" aria-selected="true">📅 Today</button>
+          <button data-target="streaks" role="tab">🔥 Streaks</button>
+          <button data-target="wins" role="tab">🏆 Wins</button>
+          <button data-target="settings" role="tab">⚙️ Settings</button>
+        </nav>
+        <div class="external-links">
+          <a
+            class="link-btn"
+            href="https://chatgpt.com/g/g-p-68feee841e7081919a28fe9b3083e9f0-karl/project"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🧠 Meet Karl
+          </a>
+          <a
+            class="link-btn secondary"
+            href="https://jbdoc19.github.io/Tasker5000/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            💼 Tasker 5000
+          </a>
+        </div>
+      </div>
       <div class="streak-panel">
         <div class="streak-count">
           <span>Current streak</span>
