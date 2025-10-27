@@ -10,17 +10,6 @@
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
-  <script>
-    window.chatkitConfig = {
-      workflowId: "wf_68fec710e2b88190ac05c3dbcf8a0e780c32ac5cede0de70",
-      version: "1",
-      agentName: "Karl",
-      widgetTitle: "ADHD micro-coach",
-    };
-    // Some builds read capital-K. Safe alias.
-    window.chatKitConfig = window.chatkitConfig;
-  </script>
-  <script src="https://cdn.chatkit.openai.com/chatkit.js?v=1" defer></script>
   <style>
     :root {
       color-scheme: dark;
@@ -1573,66 +1562,29 @@
     document.addEventListener('DOMContentLoaded', init);
   </script>
 
-  <div id="adhd-coach" style="position:fixed;right:16px;bottom:16px;width:360px;max-width:90vw;min-height:420px;z-index:2147483647;"></div>
-  <div id="chatkit-status" style="position:fixed;left:16px;bottom:16px;padding:6px 10px;font:12px system-ui;background:#111;border:1px solid #333;border-radius:8px;opacity:.85;z-index:2147483647;">ChatKit: starting…</div>
+  <script src="https://cdn.platform.openai.com/deployments/chatkit/chatkit.js" async></script>
+  <openai-chatkit id="karl-chat" style="width:380px;height:600px;max-width:100%;"></openai-chatkit>
+
   <script>
-    (function () {
-      const statusEl = document.getElementById('chatkit-status');
-      const setStatus = (t) => statusEl && (statusEl.textContent = 'ChatKit: ' + t);
-      const mountEl = document.getElementById('adhd-coach');
-      const cfg = { ...(window.chatKitConfig || window.chatkitConfig || {}), agentName: 'Karl' };
+    const TOKEN_API_BASE = "https://karl-token.up.railway.app"; // <-- set this
 
-      function declarativeFallback() {
-        const el = document.createElement('chatkit-widget');
-        if (cfg.workflowId) el.setAttribute('data-workflow-id', cfg.workflowId);
-        el.setAttribute('data-agent-name', 'Karl');
-        if (cfg.widgetTitle) el.setAttribute('data-title', cfg.widgetTitle);
-        el.style.cssText = 'display:block;width:100%;height:100%';
-        mountEl.replaceChildren(el);
-        setStatus('declarative injected');
+    async function getClientSecret(current) {
+      if (!current) {
+        const r = await fetch(`${TOKEN_API_BASE}/api/chatkit/session`, { method: "POST" });
+        const { client_secret } = await r.json();
+        return client_secret;
       }
+      const r = await fetch(`${TOKEN_API_BASE}/api/chatkit/refresh`, { method: "POST" });
+      const { client_secret } = await r.json();
+      return client_secret;
+    }
 
-      window.addEventListener('DOMContentLoaded', async () => {
-        const sdkTag = Array.from(document.scripts).find((s) => (s.src || '').includes('cdn.chatkit.openai.com/chatkit.js'));
-        if (!sdkTag) {
-          setStatus('SDK script tag missing');
-          return;
-        }
-        sdkTag.addEventListener('error', () => setStatus('SDK failed to load'));
-        setStatus('waiting for SDK…');
-        const ready = await Promise.race([
-          customElements.whenDefined('chatkit-widget').then(() => 'element'),
-          new Promise((res) => {
-            const iv = setInterval(() => {
-              if (window.ChatKit && typeof window.ChatKit.mount === 'function') {
-                clearInterval(iv);
-                res('mount');
-              }
-            }, 150);
-            setTimeout(() => {
-              clearInterval(iv);
-              res('timeout');
-            }, 7000);
-          }),
-        ]);
-        if (ready === 'mount' && window.ChatKit && typeof window.ChatKit.mount === 'function') {
-          try {
-            await window.ChatKit.mount({ element: mountEl, workflowId: cfg.workflowId, agentName: 'Karl', title: cfg.widgetTitle });
-            setStatus('mounted (imperative)');
-            return;
-          } catch (e) {
-            console.error('[ChatKit] mount() error', e);
-            setStatus('mount() threw; fallback');
-          }
-        }
-        if (ready === 'element') {
-          declarativeFallback();
-          return;
-        }
-        declarativeFallback();
-        setStatus('timeout; fallback injected');
-      });
-    })();
+    const chat = document.getElementById("karl-chat");
+    chat.setOptions({
+      api: { getClientSecret },
+      startScreen: { greeting: "Hi! I’m Karl — your ADHD micro-coach." },
+      composer: { placeholder: "Ask for a 3-step plan…" }
+    });
   </script>
 </body>
 </html>
