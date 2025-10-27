@@ -10,6 +10,13 @@
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
+  <script src="https://cdn.chatkit.openai.com/chatkit.js"></script>
+  <script>
+    window.chatkitConfig = {
+      workflowId: "wf_68feb646168c8190acba7bc9e9c4923207722c157effc7f9",
+      version: "1",
+    };
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -729,6 +736,7 @@
   </style>
 </head>
 <body>
+  <chatkit-widget></chatkit-widget>
   <div class="app">
     <header class="command-strip" role="banner">
       <div class="brand">
