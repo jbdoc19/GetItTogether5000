@@ -1,0 +1,11 @@
+{
+  "name": "karl-token-api",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2",
+    "openai": "^4.60.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
