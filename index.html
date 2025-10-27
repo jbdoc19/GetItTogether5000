@@ -15,8 +15,10 @@
       workflowId: "wf_68fec710e2b88190ac05c3dbcf8a0e780c32ac5cede0de70",
       version: "1",
       agentName: "Karl",
-      widgetTitle: "ADHD- micto coach",
+      widgetTitle: "ADHD micro-coach",
     };
+    // Some builds read capital-K. Safe alias.
+    window.chatKitConfig = window.chatkitConfig;
   </script>
   <script src="https://cdn.chatkit.openai.com/chatkit.js" defer></script>
   <style>
@@ -1571,6 +1573,12 @@
     document.addEventListener('DOMContentLoaded', init);
   </script>
 
-  <chatkit-widget></chatkit-widget>
+  <!-- ADHD micro-coach widget (explicit config + visible box) -->
+  <chatkit-widget
+    data-workflow-id="wf_68fec710e2b88190ac05c3dbcf8a0e780c32ac5cede0de70"
+    data-agent-name="Karl"
+    data-title="ADHD micro-coach"
+    style="position:fixed;right:16px;bottom:16px;width:360px;max-width:90vw;min-height:420px;z-index:2147483647;display:block;"
+  ></chatkit-widget>
 </body>
 </html>
